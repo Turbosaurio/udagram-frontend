@@ -1,23 +1,10 @@
-# Use NodeJS base image
-FROM node:13 as node
-
-# Create app directory
-WORKDIR /usr/src/app
-
-# Install app dependencies by copying
-# package.json and package-lock.json
-COPY package*.json ./
-
-# Install dependencies
+FROM node:13-alpine as build
+WORKDIR /app
+COPY package*.json /app/
+RUN npm install -g ionic
 RUN npm install
-RUN npm -g install ionic
-
-# Copy app source
-COPY . .
-RUN npm run build
-
-# Bind the port that the image will run on for User service
-# EXPOSE 8100
-
+COPY ./ /app/
+RUN npm run-script build
 FROM nginx:alpine
-COPY --from=node /app/www /usr/share/nginx/html
+RUN rm -rf /usr/share/nginx/html/*
+COPY --from=build /app/www/ /usr/share/nginx/html/
