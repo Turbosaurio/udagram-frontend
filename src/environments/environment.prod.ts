@@ -2,10 +2,14 @@
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
+require('dotenv');
+
+const proxy = process.env.PROXY_ENDPOINT
+
 export const environment = {
   production: false,
   appName: 'Udagram',
-  apiHost: 'http://172.31.10.175:8080/api/v0'
+  apiHost: proxy + '/api/v0'
 };
 
 /*

@@ -10,7 +10,7 @@ RUN npm ci
 # Bundle app source
 COPY . .
 # RUN ionic init
-RUN ionic build
+RUN ionic build --prod
 ## Run
 FROM nginx:alpine
 #COPY www /usr/share/nginx/html
