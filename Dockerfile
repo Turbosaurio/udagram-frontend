@@ -1,17 +1,22 @@
-## Build
-FROM beevelop/ionic AS ionic
+# Use NodeJS base image
+FROM node:13
+
 # Create app directory
 WORKDIR /usr/src/app
-# Install app dependencies
-# A wildcard is used to ensure both package.json AND package-lock.json are copied
-# where available (npm@5+)
+
+# Install app dependencies by copying
+# package.json and package-lock.json
 COPY package*.json ./
-RUN npm ci
-# Bundle app source
+
+# Install dependencies
+RUN npm install
+RUN npm i -s ionic
+
+# Copy app source
 COPY . .
-# RUN ionic init
-RUN ionic build --prod
-## Run
-FROM nginx:alpine
-#COPY www /usr/share/nginx/html
-COPY --from=ionic  /usr/src/app/www /usr/share/nginx/html
+
+# Bind the port that the image will run on for User service
+EXPOSE 8100
+
+# Define the Docker image's behavior at runtime
+CMD ["ionic", "serve"]
