@@ -16,7 +16,7 @@ before_script:
 script:
   - docker --version # print the version for logging
   - docker build -t frontend .
-  - docker tag frontend turbosaurio/udagram-frontend
+  - docker tag frontend turbosaurio/frontend
 
 # Tasks to perform after the process is successful. Formatting the Docker username and password as below enables you to programmatically log in without having the password exposed in logs.
 after_success:
