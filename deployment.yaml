@@ -2,8 +2,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: udagram-frontend
-  labels:
-    app: udagram-frontend
 spec:
   replicas: 1
   selector:
@@ -18,8 +16,19 @@ spec:
       - name: frontend
         image: turbosaurio/frontend
         ports:
-        - containerPort: 8100
-        command: ["sleep","infinity"]
-        env:
-        - name: PROXY_ENDPOINT
-          value: http://reverseproxy:8080
+        - containerPort: 80
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: udagram-frontend
+spec:
+  ports:
+  - port: 4200
+    targetPort: 80
+    protocol: TCP
+  selector:
+    run: udagram-frontend
+  type: LoadBalance
