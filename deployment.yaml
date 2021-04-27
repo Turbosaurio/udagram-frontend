@@ -26,9 +26,10 @@ metadata:
   name: udagram-frontend
 spec:
   ports:
-  - port: 4200
+  - port: 80
     targetPort: 80
     protocol: TCP
+    nodePort: 31000
   selector:
-    run: udagram-frontend
-  type: LoadBalance
+    app: udagram-frontend
+  type: LoadBalancer

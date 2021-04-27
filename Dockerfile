@@ -13,7 +13,7 @@ RUN npm install
 
 # Copy app source
 COPY ./ /app/
-RUN npm run build
+RUN npm run build --prod
 
 FROM nginx:alpine
 COPY --from=build /app/www /usr/share/nginx/html
