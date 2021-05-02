@@ -15,6 +15,7 @@ spec:
       containers:
       - name: frontend
         image: turbosaurio/frontend
+        imagePullPolicy: Always
         ports:
         - containerPort: 80
 
